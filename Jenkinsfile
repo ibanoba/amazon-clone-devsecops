@@ -8,6 +8,7 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
+        TRIVY_CACHE_DIR = "/tmp/trivy-cache"
     }
 
     stages {
