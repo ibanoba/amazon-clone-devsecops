@@ -69,8 +69,8 @@ pipeline {
 
         stage("Trivy File Scan") {
             steps {
-            //  sh 'trivy fs . > trivyfs.txt'
-                sh 'trivy fs --format table -o fs-report.html .'
+                sh 'trivy fs . > trivyfs.txt'
+            //  sh 'trivy fs --format table -o fs-report.html .'
             }
         }
 
@@ -82,7 +82,7 @@ pipeline {
                     // Optional cleanup
                     sh "docker rmi -f amazon ${env.IMAGE_TAG} || true"
 
-                    sh "docker build -t amazon ."
+                    sh "docker build -t ${env.IMAGE_TAG} ."
                 }
             }
         }
