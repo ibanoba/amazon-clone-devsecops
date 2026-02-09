@@ -92,11 +92,11 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'docker-cred', variable: 'dockerpwd')]) {
                         sh "docker login -u ibanoba -p ${dockerpwd}"
-                        sh "docker tag amazon ${env.IMAGE_TAG}"
+                        sh "docker tag ${env.IMAGE_TAG}"
                         sh "docker push ${env.IMAGE_TAG}"
 
                         // Also push latest
-                        sh "docker tag amazon ibanoba/amazon:latest"
+                        sh "docker tag ibanoba/amazon:latest"
                         sh "docker push ibanoba/amazon:latest"
                     }
                 }
