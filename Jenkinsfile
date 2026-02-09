@@ -19,7 +19,7 @@ pipeline {
 
         stage("Git Checkout") {
             steps {
-                git branch: 'main', url: 'https://github.com/harishnshetty/amazon-Devsecops.git'
+                git branch: 'main', url: 'https://github.com/ibanoba/amazon-clone-devsecops.git'
             }
         }
 
@@ -75,7 +75,7 @@ pipeline {
         stage("Build Docker Image") {
             steps {
                 script {
-                    env.IMAGE_TAG = "harishnshetty/amazon:${BUILD_NUMBER}"
+                    env.IMAGE_TAG = "ibanoba/amazon:${BUILD_NUMBER}"
 
                     // Optional cleanup
                     sh "docker rmi -f amazon ${env.IMAGE_TAG} || true"
@@ -89,13 +89,13 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'docker-cred', variable: 'dockerpwd')]) {
-                        sh "docker login -u harishnshetty -p ${dockerpwd}"
+                        sh "docker login -u ibanoba -p ${dockerpwd}"
                         sh "docker tag amazon ${env.IMAGE_TAG}"
                         sh "docker push ${env.IMAGE_TAG}"
 
                         // Also push latest
-                        sh "docker tag amazon harishnshetty/amazon:latest"
-                        sh "docker push harishnshetty/amazon:latest"
+                        sh "docker tag amazon ibanoba/amazon:latest"
+                        sh "docker push ibanoba/amazon:latest"
                     }
                 }
             }
